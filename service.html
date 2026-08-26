@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GEMINi Service Reminder</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.logo {
+    color: #F28C28;
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 7px;
+    margin-bottom: 35px;
+}
+
+.card {
+    max-width: 430px;
+    margin: auto;
+    border: 1px solid #F28C28;
+    border-radius: 16px;
+    padding: 30px 24px;
+}
+
+.title {
+    color: #F28C28;
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+}
+
+.label {
+    color: #888;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 7px;
+    margin-bottom: 22px;
+}
+
+.service-box {
+    text-align: left;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    margin-top: 5px;
+}
+
+.service-box h3 {
+    color: #F28C28;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.service-item {
+    padding: 9px 0;
+    border-bottom: 1px solid #222;
+    color: #ddd;
+}
+
+.service-item:last-child {
+    border-bottom: none;
+}
+
+.button {
+    display: block;
+    margin-top: 28px;
+    padding: 14px;
+    background: #F28C28;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.message {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.footer {
+    margin-top: 30px;
+    color: #666;
+    font-size: 11px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo">GEMINi</div>
+
+<div class="card">
+
+    <div class="title">SERVICE REMINDER</div>
+    <div class="label">Vehicle</div>
+<div class="value" id="vehicle">Loading...</div>
+
+<div class="label">Next Service</div>
+<div class="value" id="nextService">Loading...</div>
+
+    <div class="service-box">
+
+        <h3>SERVICE DUE</h3>
+
+        <div class="service-item" id="transmission">Transmission Oil & Filter</div>
+        <div class="service-item" id="coolant">Coolant Replacement</div>
+        <div class="service-item" id="brake">Brake Fluid</div>
+        <div class="service-item" id="differential">Differential Oil</div>
+        <div class="service-item" id="fourwd">4WD Oil</div>
+        <div class="service-item" id="ac">A/C Cabin Filter</div>
+
+    </div>
+
+    <a class="button" href="https://wa.me/971543304301">
+        BOOK YOUR SERVICE
+    </a>
+
+    <a class="button" href="service-history.html">
+        SERVICE HISTORY
+    </a>
+
+    <div class="message">
+        Your vehicle is approaching its scheduled service.<br>
+        Contact GEMINi to arrange your appointment.
+    </div>
+
+</div>
+
+<div class="footer">
+    GEMINi
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const vehicle = params.get("vehicle");
+const service = params.get("service");
+const history = params.get("history");
+
+if (history) {
+    document.querySelector('a[href="service-history.html"]').href = "history/" + history;
+}
+
+if (vehicle) {
+    document.getElementById("vehicle").textContent = vehicle;
+}
+
+if (service) {
+    document.getElementById("nextService").textContent = service + " KM";
+}
+
+const serviceFields = [
+    ["transmission", "Transmission Oil & Filter"],
+    ["coolant", "Coolant Replacement"],
+    ["brake", "Brake Fluid"],
+    ["differential", "Differential Oil"],
+    ["fourwd", "4WD Oil"],
+    ["ac", "A/C Cabin Filter"]
+];
+
+serviceFields.forEach(([key, label]) => {
+    const km = params.get(key);
+    if (km) {
+        document.getElementById(key).textContent = label + " — Due at " + km + " KM";
+    }
+});
+</script>
+
+</body>
+</html>
