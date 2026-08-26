@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEMINi QR Generator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.logo {
+    color: #F28C28;
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 7px;
+    margin-bottom: 35px;
+}
+
+.card {
+    max-width: 430px;
+    margin: auto;
+    border: 1px solid #F28C28;
+    border-radius: 16px;
+    padding: 30px 24px;
+}
+
+h2 {
+    color: #F28C28;
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0 15px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: #F28C28;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#qr {
+    margin-top: 30px;
+}
+
+#qr img {
+    width: 250px;
+    height: 250px;
+    background: white;
+    padding: 10px;
+}
+
+.url {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #888;
+    word-break: break-all;
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo">GEMINi</div>
+
+<div class="card">
+
+    <h2>QR SERVICE GENERATOR</h2>
+
+    <input id="vehicle" type="text" placeholder="Vehicle e.g. BMW X5">
+
+    <input id="service" type="number" placeholder="Next Service KM e.g. 70000">
+    <input id="history" type="text" placeholder="Service History PDF e.g. range-rover-velar.pdf">
+
+    <h3>SERVICE DUE</h3>
+    <input id="transmission" type="number" placeholder="Transmission Oil & Filter KM">
+    <input id="coolant" type="number" placeholder="Coolant Replacement KM">
+    <input id="brake" type="number" placeholder="Brake Fluid KM">
+    <input id="differential" type="number" placeholder="Differential Oil KM">
+    <input id="fourwd" type="number" placeholder="4WD Oil KM">
+    <input id="ac" type="number" placeholder="A/C Cabin Filter KM">
+
+    <button onclick="generateQR()">GENERATE QR CODE</button>
+
+    <div id="qr"></div>
+
+</div>
+
+<script>
+
+function generateQR() {
+
+    const vehicle = document.getElementById("vehicle").value.trim();
+    const service = document.getElementById("service").value.trim();
+
+    if (!vehicle || !service) {
+        alert("Please enter vehicle and service KM.");
+        return;
+    }
+
+    const page =
+        "https://tonihoueiss-ctrl.github.io/gemini-qr/service.html"
+        + "?vehicle=" + encodeURIComponent(vehicle)
+        + "&service=" + encodeURIComponent(service)
+        + "&history=" + encodeURIComponent(document.getElementById("history").value.trim())
+        + "&transmission=" + encodeURIComponent(document.getElementById("transmission").value.trim())
+        + "&coolant=" + encodeURIComponent(document.getElementById("coolant").value.trim())
+        + "&brake=" + encodeURIComponent(document.getElementById("brake").value.trim())
+        + "&differential=" + encodeURIComponent(document.getElementById("differential").value.trim())
+        + "&fourwd=" + encodeURIComponent(document.getElementById("fourwd").value.trim())
+        + "&ac=" + encodeURIComponent(document.getElementById("ac").value.trim());
+
+    const qrURL =
+        "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data="
+        + encodeURIComponent(page);
+
+    document.getElementById("qr").innerHTML =
+        '<img src="' + qrURL + '" alt="GEMINi QR Code">' +
+        '<div class="url">' + page + '</div>';
+}
+
+</script>
+
+</body>
+</html>
