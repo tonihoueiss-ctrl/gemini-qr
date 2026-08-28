@@ -93,6 +93,9 @@ button {
     <input id="vehicle" type="text" placeholder="Vehicle e.g. BMW X5">
 
     <input id="service" type="number" placeholder="Next Service KM e.g. 70000">
+    <input id="renewal" type="month" placeholder="Car Renewal">
+    <input id="insurance" type="month" placeholder="Insurance Expiry">
+
     <input id="history" type="text" placeholder="Service History PDF e.g. range-rover-velar.pdf">
 
     <h3>SERVICE DUE</h3>
@@ -125,6 +128,8 @@ function generateQR() {
         "https://tonihoueiss-ctrl.github.io/gemini-qr/service.html"
         + "?vehicle=" + encodeURIComponent(vehicle)
         + "&service=" + encodeURIComponent(service)
+        + "&renewal=" + encodeURIComponent(document.getElementById("renewal").value)
+        + "&insurance=" + encodeURIComponent(document.getElementById("insurance").value)
         + "&history=" + encodeURIComponent(document.getElementById("history").value.trim())
         + "&transmission=" + encodeURIComponent(document.getElementById("transmission").value.trim())
         + "&coolant=" + encodeURIComponent(document.getElementById("coolant").value.trim())
