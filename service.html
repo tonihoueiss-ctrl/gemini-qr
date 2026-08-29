@@ -177,12 +177,16 @@ if (service) {
     document.getElementById("nextService").textContent = service + " KM";
 }
 if (renewal) {
-    const [year, month] = renewal.split("-");
+    const parts = renewal.includes("-") ? renewal.split("-") : renewal.split("/");
+    const year = renewal.includes("-") ? parts[0] : parts[1];
+    const month = renewal.includes("-") ? parts[1] : parts[0];
     document.getElementById("renewal").textContent = month + "/" + year;
 }
 
 if (insurance) {
-    const [year, month] = insurance.split("-");
+    const parts = insurance.includes("-") ? insurance.split("-") : insurance.split("/");
+    const year = insurance.includes("-") ? parts[0] : parts[1];
+    const month = insurance.includes("-") ? parts[1] : parts[0];
     document.getElementById("insurance").textContent = month + "/" + year;
 }
 const serviceFields = [
